@@ -1,0 +1,14 @@
+{
+    "Username" : {
+        "0":"member",
+        "1":"admin"
+    },
+    "Password" : {
+        "0":"member",
+        "1":"admin"
+    },
+    "HakAkses" : {
+        "0":0,
+        "1":1
+    }
+}

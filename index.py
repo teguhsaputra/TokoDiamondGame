@@ -1,7 +1,7 @@
 import os
 import time
 import pandas as pd
-
+import numpy as np
 
 diamond = [14,"14(13+1) Diamonds", 3999     ],
 [14,"42(38+4) Diamonds",           10999    ],
@@ -15,8 +15,120 @@ def clear_screen():
     _ = os.system('cls')
 
 
-def Login():
+# def Login():
     
+#     print('''
+#              SELAMAT DATANG DI 
+#         DIAMOND GAME STORE MURAH NAMPOL
+#               SILAHKAN LOGIN
+# ==============================================
+# ''')
+#     username = input("Masukkan Username : ")
+#     password = input("Masukkan Password : ")
+#     akses = 2
+
+#     if(username == "member" and password == "member" and akses == 1):
+#         Member()
+#     elif(username == "admin" and password == "admin" and akses == 2):
+#         Admin()
+#     else:
+#         print()
+#         print("Password Salah, Silahkan Login kembali !")
+#         time.sleep(3)
+#         clear_screen()
+#         Login()
+
+# def Member():
+#     print('''
+# Pilih Game 
+# 1. Mobile Legends
+# 2. Free Fire
+# 3. PUBG
+# ==================
+# ''')
+#     keranjang = []
+#     pilihgame = int(input("Masukkan Jenis Game : "))
+#     keranjang.insert = [pilihgame]
+
+#     idgame = input("Masukkan ID Game : ")
+#     keranjang.insert = [idgame]
+
+#     pilihdiamond = int(input("Masukkan Jumlah Diamond : "))
+#     keranjang.insert = [pilihdiamond]
+#     clear_screen()
+
+
+
+# def Admin():
+#     dataHarga = {
+#         "Diamond" : [14,42,86,172,257,347,429],
+#         "Harga" : [3999,10999,19999,39999,59999,80000,100000]
+#     }
+#     showData = pd.DataFrame(dataHarga)
+#     print(showData)
+#     print()
+#     pilihdiamond = int(input("Pilih Diamond : "))
+#     hargaDiamond = dataHarga["Harga"][pilihdiamond]
+#     print("Harga Diamond : ",hargaDiamond)
+#     jumlahBayar = int(input("Masukkan Jumlah Bayar : "))
+#     total = jumlahBayar - hargaDiamond
+#     print(50*"=")
+#     print("Kembalian = ", total)
+#     print("Terimakasih Telah Membeli Diamond Kami")
+#Login()
+# Admin()
+
+df_login = pd.read_json('db_login.json')
+df_game = pd.read_json('db_game.json')
+cart = []
+# print(df_login["Username"])
+# temp_user = []
+def check_login(username,password):
+    for dts in range(0, df_login["Username"].size):
+        if df_login["Username"].values[dts] == username and df_login["Password"].values[dts] == password:
+            # temp_user.append([df_login["Username"][1],df_login["Password"][1],df_login["HakAkses"][1]])
+            # print(temp_user)
+            return True, df_login["HakAkses"].values[dts]
+            break
+    return False, 404
+
+def check_kodegame(KodeGame):
+    for kdg in range(0, df_game["KodeGame"].size):
+        if df_game["KodeGame"].values[kdg] == KodeGame:
+            # temp_user.append([df_login["Username"][1],df_login["Password"][1],df_login["HakAkses"][1]])
+            # print(temp_user)
+            return True, df_game["Game"].values[kdg]
+            break
+    return False, 404
+
+def tes():
+    print(cart)
+
+def member():
+    print(df_game.to_string(index=False))
+    print(50*"=")
+    KodeGame = int(input("Masukkan KodeGame : "))
+    Return,Game = check_kodegame(KodeGame)
+
+    if Return == True:
+        cart.append(Game)
+        cart.append(111111)
+        cart.append(222222)
+        cart.append(1000000)
+        clear_screen()
+        tes()
+    else:
+        print("KodeGame tidak ada !")
+        time.sleep(1)
+        clear_screen()
+        member()
+
+
+
+def admin():
+    print("Ini halaman admin")
+
+def login():
     print('''
              SELAMAT DATANG DI 
         DIAMOND GAME STORE MURAH NAMPOL
@@ -25,58 +137,48 @@ def Login():
 ''')
     username = input("Masukkan Username : ")
     password = input("Masukkan Password : ")
-    akses = 2
-
-    if(username == "member" and password == "member" and akses == 1):
-        Member()
-    elif(username == "admin" and password == "admin" and akses == 2):
-        Admin()
+    Return,HakAkses = check_login(username, password)
+    
+    if Return == True:
+        if HakAkses == 0:
+            print("Berhasil Login !")
+            time.sleep(1)
+            clear_screen()
+            member()
+        else:
+            print("Berhasil Login !")
+            time.sleep(1)
+            clear_screen()
+            admin()
     else:
-        print()
-        print("Password Salah, Silahkan Login kembali !")
-        time.sleep(3)
+        print("Username/Password Salah !")
+        time.sleep(1)
         clear_screen()
-        Login()
+        login()
 
-def Member():
-    print('''
-Pilih Game 
-1. Mobile Legends
-2. Free Fire
-3. PUBG
-==================
-''')
-    keranjang = []
-    pilihgame = int(input("Masukkan Jenis Game : "))
-    keranjang.insert = [pilihgame]
-
-    idgame = input("Masukkan ID Game : ")
-    keranjang.insert = [idgame]
-
-    pilihdiamond = int(input("Masukkan Jumlah Diamond : "))
-    keranjang.insert = [pilihdiamond]
-    clear_screen()
+            
+clear_screen()
+member()
 
 
-
-def Admin():
-    dataHarga = {
-        "Diamond" : [14,42,86,172,257,347,429],
-        "Harga" : [3999,10999,19999,39999,59999,80000,100000]
-    }
-    showData = pd.DataFrame(dataHarga)
-    print(showData)
-    print()
-    pilihdiamond = int(input("Pilih Diamond : "))
-    hargaDiamond = dataHarga["Harga"][pilihdiamond]
-    print("Harga Diamond : ",hargaDiamond)
-    jumlahBayar = int(input("Masukkan Jumlah Bayar : "))
-    total = jumlahBayar - hargaDiamond
-    print(50*"=")
-    print("Kembalian = ", total)
-    print("Terimakasih Telah Membeli Diamond Kami")
-#Login()
-Admin()
+# for dts in range(0, df_login["Username"].size):
+#     if df_login["Username"].values[dts] != username or df_login["Password"].values[dts] == password:
+#         print("Username / Password Salah")
+#         break
+#     elif df_login["Username"].values[dts] == username and df_login["Password"].values[dts] == password:
+#         print("ada datanya")
+#         if df_login["HakAkses"].values[dts] == 0:
+#             print("Ini Halaman Member")
+#             break
+#             # Admin()
+#         else:
+#             # Member()
+#             print("ini Halaman Admin")
+#             break
+#     else:
+#         error = "Username/Password salah!"
+# print(error)
+    # print(df_login.values[dts])
 
 #     def MobileLegends():
 #         id_ml = int(input("Masukkan ID : "))
