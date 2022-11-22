@@ -1,14 +1,15 @@
 import os
 import time
+import pandas as pd
 
 
-diamond = ["p1",14,"14(13+1) Diamonds", 3999],
-[14,"42(38+4) Diamonds", 10999],
-[86,"86(78+8) Diamonds", 19999],
-[172,"172(156+16) Diamonds", 39999],
-[257,"257(234+23) Diamonds", 59999],
-[344, "344(312+32) Diamonds", 80000],
-[429, "429(384+46) Diamonds", 100000]
+diamond = [14,"14(13+1) Diamonds", 3999     ],
+[14,"42(38+4) Diamonds",           10999    ],
+[86,"86(78+8) Diamonds",           19999    ],
+[172,"172(156+16) Diamonds",       39999    ],
+[257,"257(234+23) Diamonds",       59999    ],
+[344, "344(312+32) Diamonds",      80000    ],
+[429, "429(384+46) Diamonds",      100000   ]
 
 def clear_screen():
     _ = os.system('cls')
@@ -24,7 +25,7 @@ def Login():
 ''')
     username = input("Masukkan Username : ")
     password = input("Masukkan Password : ")
-    akses = 1
+    akses = 2
 
     if(username == "member" and password == "member" and akses == 1):
         Member()
@@ -38,14 +39,44 @@ def Login():
         Login()
 
 def Member():
-    print("Area Member")
+    print('''
+Pilih Game 
+1. Mobile Legends
+2. Free Fire
+3. PUBG
+==================
+''')
+    keranjang = []
+    pilihgame = int(input("Masukkan Jenis Game : "))
+    keranjang.insert = [pilihgame]
+
+    idgame = input("Masukkan ID Game : ")
+    keranjang.insert = [idgame]
+
+    pilihdiamond = int(input("Masukkan Jumlah Diamond : "))
+    keranjang.insert = [pilihdiamond]
+    clear_screen()
+
+
 
 def Admin():
-    print("Area Admin")
-
-Login()
-
-        
+    dataHarga = {
+        "Diamond" : [14,42,86,172,257,347,429],
+        "Harga" : [3999,10999,19999,39999,59999,80000,100000]
+    }
+    showData = pd.DataFrame(dataHarga)
+    print(showData)
+    print()
+    pilihdiamond = int(input("Pilih Diamond : "))
+    hargaDiamond = dataHarga["Harga"][pilihdiamond]
+    print("Harga Diamond : ",hargaDiamond)
+    jumlahBayar = int(input("Masukkan Jumlah Bayar : "))
+    total = jumlahBayar - hargaDiamond
+    print(50*"=")
+    print("Kembalian = ", total)
+    print("Terimakasih Telah Membeli Diamond Kami")
+#Login()
+Admin()
 
 #     def MobileLegends():
 #         id_ml = int(input("Masukkan ID : "))
