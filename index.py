@@ -44,17 +44,43 @@ def check_kodediamond(KodeDiamond):
             break
     return False, 404, 0
 
-def Print():
-    print("Nama Game : ",cart[0])
-    print("ID Game : ",cart[1])
-    print("Diamond : ",cart[2])
-    print("Harga : ",cart[3])
-    print(35*"=")
-    print("Uang Bayar : ", cart[4])
-    print("Kembalian Anda : ", cart[5])
-    print(35*"=")
-    print("Terimakasih Telah Membeli Diamond")
-    print("Di GAME STORE MURAH NAMPOL")
+def PrintStruk():
+    lanjut = input("Apakan Anda ingin menyetak struk ? <y/n> ")
+    if lanjut == "y" or lanjut == "Y":
+        if os.path.isfile('struk.txt'):
+            os.unlink('struk.txt')
+        while 
+        time.sleep(1)
+        with open('struk.txt', 'w') as f:
+            txt_print0 = '''
+    DIAMOND GAME STORE MURAH NAMPOL
+'''
+            txt_print1 = 35*"="
+            txt_print2 = "\nNama Game : {NameGame} \nID Game : {IdGame} \nDiamond : {Diamond} \nHarga : {Harga} \nUang Bayar : {UangBayar} \nUang Kembalian : {UangKembalian} \n".format(NameGame = cart[0], 
+            IdGame = cart[1], Diamond = cart[2], Harga = cart[3], UangBayar = cart[4], UangKembalian = cart[5])
+            txt_print3 = 35*"="
+            txt_print4 = "\nTerimakasih Telah Membeli Diamond \nDi GAME STORE MURAH NAMPOL\n"
+            txt_gabung = txt_print0+txt_print1+txt_print2+txt_print3+txt_print4
+            f.write(txt_gabung)     
+            print(txt_gabung)     
+            # os.startfile("struk.txt", "print")
+            Lanjut_Def()
+    elif lanjut == "n" or lanjut == "N":
+        Lanjut_Def()
+    else:
+        PrintStruk()
+   
+
+    # print("Nama Game : ",cart[0])
+    # print("ID Game : ",cart[1])
+    # print("Diamond : ",cart[2])
+    # print("Harga : ",cart[3])
+    # print(35*"=")
+    # print("Uang Bayar : ", cart[4])
+    # print("Kembalian Anda : ", cart[5])
+    # print(35*"=")
+    # print("Terimakasih Telah Membeli Diamond")
+    # print("Di GAME STORE MURAH NAMPOL")
 
 def Lanjut_Def():
     lanjut = input("Apakan Anda ingin membeli lagi ? <y/n> ")
@@ -110,8 +136,18 @@ def Total_Def():
         print("Terimakasih Telah Membeli Diamond")
         print("Di GAME STORE MURAH NAMPOL")
         print(35*"=")
-        InputPenjualan()
-        Lanjut_Def()
+
+        PrintStruk()
+
+        # lanjut = input("Apakan Anda ingin cetak struk ? <y/n> ")
+        # if lanjut == "y" or lanjut == "Y":
+        #     # clear_screen()
+        #     PrintStruk()            
+        # elif lanjut == "n" or lanjut == "N":
+        #     clear_screen()
+        #     login()
+        # else:
+        #     Lanjut_Def()    
 
 def Game_Def():
     data = pd.DataFrame(df_game)
