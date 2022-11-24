@@ -2,14 +2,7 @@ import os
 import time
 import pandas as pd
 import numpy as np
-
-diamond = [14,"14(13+1) Diamonds", 3999     ],
-[14,"42(38+4) Diamonds",           10999    ],
-[86,"86(78+8) Diamonds",           19999    ],
-[172,"172(156+16) Diamonds",       39999    ],
-[257,"257(234+23) Diamonds",       59999    ],
-[344, "344(312+32) Diamonds",      80000    ],
-[429, "429(384+46) Diamonds",      100000   ]
+from datetime import datetime
 
 def clear_screen():
     _ = os.system('cls')
@@ -80,7 +73,10 @@ def clear_screen():
 
 df_login = pd.read_json('db_login.json')
 df_game = pd.read_json('db_game.json')
+df_diamond = pd.read_json('db_diamond.json')
 cart = []
+now = datetime.now()
+dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 # print(df_login["Username"])
 # temp_user = []
 def check_login(username,password):
@@ -101,29 +97,98 @@ def check_kodegame(KodeGame):
             break
     return False, 404
 
-def tes():
-    print(cart)
+def check_kodediamond(KodeDiamond):
+    for kd in range(0, df_diamond["KodeDiamond"].size):
+        if df_diamond["KodeDiamond"].values[kd] == KodeDiamond:
+            # temp_user.append([df_login["Username"][1],df_login["Password"][1],df_login["HakAkses"][1]])
+            # print(temp_user)
+            return True, df_diamond["Diamond"].values[kd], df_diamond["Harga"].values[kd]
+            break
+    return False, 404, 0
 
-def member():
+def Print():
+    print("Nama Game : ",cart[0])
+    print("ID Game : ",cart[1])
+    print("Diamond : ",cart[2])
+    print("Harga : ",cart[3])
+    print(35*"=")
+    print("Uang Bayar : ", cart[4])
+    print("Kembalian Anda : ", cart[5])
+    print(35*"=")
+    print("Terimakasih Telah Membeli Diamond")
+    print("Di GAME STORE MURAH NAMPOL")
+
+def Total_Def():
+    print("Nama Game : ",cart[0])
+    print("ID Game : ",cart[1])
+    print("Diamond : ",cart[2])
+    print("Harga : ",cart[3])
+    print(35*"=")
+    UangBayar = int(input("Uang Bayar : "))
+    if UangBayar < cart[3]:
+        print("Uang Bayar Kurang !")
+        time.sleep(1)
+        clear_screen()
+        Total_Def()
+    else:
+        Kembalian = UangBayar - cart[3]
+        cart.append(UangBayar)
+        cart.append(Kembalian)
+        print("Kembalian Anda : ", Kembalian)
+        print(35*"=")
+        print("Terimakasih Telah Membeli Diamond")
+        print("Di GAME STORE MURAH NAMPOL")
+        print(35*"=")
+        lanjut = input("Apakan Anda ingin membeli lagi ? <y/n> ")
+        if lanjut == "y":
+            cart.clear()
+            clear_screen()
+            member()            
+        else:
+            clear_screen()
+            login()
+        
+
+
+def Game_Def():
     print(df_game.to_string(index=False))
     print(50*"=")
     KodeGame = int(input("Masukkan KodeGame : "))
-    Return,Game = check_kodegame(KodeGame)
+    ReturnKodeGame,Game = check_kodegame(KodeGame)
 
-    if Return == True:
+    if ReturnKodeGame == True:
         cart.append(Game)
-        cart.append(111111)
-        cart.append(222222)
-        cart.append(1000000)
         clear_screen()
-        tes()
+        IdGame = int(input("Masukkan ID Game : "))
+        cart.append(IdGame)
+        clear_screen()
     else:
         print("KodeGame tidak ada !")
         time.sleep(1)
         clear_screen()
-        member()
+        Game_Def()
+
+def Diamond_Def():
+    print(df_diamond.to_string(index=False))
+    print(50*"=")
+    KodeDiamond = int(input("Masukkan KodeDiamond : "))
+    ReturnKodeDiamond,Diamond,Harga = check_kodediamond(KodeDiamond)
+    if ReturnKodeDiamond == True:
+        cart.append(Diamond)
+        cart.append(Harga)
+        cart.append(dt_string)
+        clear_screen()
+    else:
+        print("KodeDiamond tidak ada !")
+        time.sleep(1)
+        clear_screen()
+        Diamond_Def()
 
 
+def member():
+    Game_Def()
+    Diamond_Def()
+    Total_Def()
 
 def admin():
     print("Ini halaman admin")
@@ -158,7 +223,7 @@ def login():
 
             
 clear_screen()
-member()
+login()
 
 
 # for dts in range(0, df_login["Username"].size):
