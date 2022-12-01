@@ -47,24 +47,30 @@ def check_kodediamond(KodeDiamond):
 def PrintStruk():
     lanjut = input("Apakan Anda ingin menyetak struk ? <y/n> ")
     if lanjut == "y" or lanjut == "Y":
-        if os.path.isfile('struk.txt'):
-            os.unlink('struk.txt')
-        while 
+        # if os.path.isfile('struk.txt'):
+        #     os.remove('struk.txt')
+        i = 1
+        # while i <= 10:
+
         time.sleep(1)
-        with open('struk.txt', 'w') as f:
-            txt_print0 = '''
-    DIAMOND GAME STORE MURAH NAMPOL
+
+        f = open("struk.txt","w")
+
+        txt_print0 = '''
+DIAMOND GAME STORE MURAH NAMPOL
 '''
-            txt_print1 = 35*"="
-            txt_print2 = "\nNama Game : {NameGame} \nID Game : {IdGame} \nDiamond : {Diamond} \nHarga : {Harga} \nUang Bayar : {UangBayar} \nUang Kembalian : {UangKembalian} \n".format(NameGame = cart[0], 
-            IdGame = cart[1], Diamond = cart[2], Harga = cart[3], UangBayar = cart[4], UangKembalian = cart[5])
-            txt_print3 = 35*"="
-            txt_print4 = "\nTerimakasih Telah Membeli Diamond \nDi GAME STORE MURAH NAMPOL\n"
-            txt_gabung = txt_print0+txt_print1+txt_print2+txt_print3+txt_print4
-            f.write(txt_gabung)     
-            print(txt_gabung)     
-            # os.startfile("struk.txt", "print")
-            Lanjut_Def()
+        txt_print1 = 35*"="
+        txt_print2 = "\nTanggal : {Tanggal} \nNama Game : {NameGame} \nID Game : {IdGame} \nDiamond : {Diamond} \nHarga : {Harga} \nUang Bayar : {UangBayar} \nUang Kembalian : {UangKembalian} \n".format(NameGame = cart[0], 
+        IdGame = cart[1], Diamond = cart[2], Harga = cart[3], Tanggal = cart[4], UangBayar = cart[5], UangKembalian = cart[6])
+        txt_print3 = 35*"="
+        txt_print4 = "\nTerimakasih Telah Membeli Diamond \nDi GAME STORE MURAH NAMPOL\n"
+        txt_gabung = txt_print0+txt_print1+txt_print2+txt_print3+txt_print4
+        # f.write("anyong")
+        f.write(txt_gabung)     
+        f.close()
+        # print(txt_gabung)     
+        os.startfile("struk.txt", "print")
+        Lanjut_Def()
     elif lanjut == "n" or lanjut == "N":
         Lanjut_Def()
     else:
@@ -137,6 +143,8 @@ def Total_Def():
         print("Di GAME STORE MURAH NAMPOL")
         print(35*"=")
 
+        InputPenjualan()
+        time.sleep(1)
         PrintStruk()
 
         # lanjut = input("Apakan Anda ingin cetak struk ? <y/n> ")
@@ -206,6 +214,7 @@ Menu :
 ''')
     lanjut = int(input("Pilih menu <1/2> ?  "))
     if lanjut == 1:
+        clear_screen()
         os.startfile("db_penjualan.csv", "print")
         print_penjualan()            
     elif lanjut == 2:
